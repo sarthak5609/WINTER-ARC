@@ -1,0 +1,106 @@
+Question 1:-Given an array of nums of n integers. Every integer in the array appears twice except one integer. Find the number that appeared once in the array.
+
+brute code:-
+class Solution{    
+public:    
+    int singleNumber(vector<int>& nums){
+    
+    for(int i = 0 ; i < nums.size() ; i++){
+        int count=0;
+        for(int j = 0 ; j< nums.size() ; j++ ){
+           
+            if(nums[i]==nums[j]){
+                count++;
+            }
+
+            }
+             if(count == 1){
+                return nums[i];
+            }
+        }
+        return -1;
+           
+    }
+};
+
+-- because of nested loop time complexty is incresed
+
+opptimise code:-
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int ans = 0;
+        for (int num : nums) {
+            ans ^= num;   // XOR each element
+        }
+        return ans;
+    }
+};
+
+its not my solution i used chatgpt . need to revise bitwise opertor
+
+
+
+
+Question 2:-Given an array nums of size n and an integer k, find the length of the longest sub-array that sums to k. If no such sub-array exists, return 0.
+
+by using of map:-
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int k) {
+        unordered_map<int, int> prefixIndex; // prefixSum -> first index
+        int prefixSum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            prefixSum += nums[i];
+
+            // Case 1: subarray from start to current index
+            if (prefixSum == k) {
+                maxLen = i + 1;
+            }
+
+            // Case 2: subarray (somewhere in middle)
+            if (prefixIndex.find(prefixSum - k) != prefixIndex.end()) {
+                int len = i - prefixIndex[prefixSum - k];
+                maxLen = max(maxLen, len);
+            }
+
+            // store first occurrence of prefixSum
+            if (prefixIndex.find(prefixSum) == prefixIndex.end()) {
+                prefixIndex[prefixSum] = i;
+            }
+        }
+
+        return maxLen;
+    }
+};
+
+brute force:-
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int k) {
+        int n = nums.size();
+        int maxLen = 0;
+
+        // Try every possible starting point
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+
+            // Extend subarray from i to j
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+
+                // If sum equals k, update maxLen
+                if (sum == k) {
+                    maxLen = max(maxLen, j - i + 1);
+                }
+            }
+        }
+
+        return maxLen;
+    }
+};
+
