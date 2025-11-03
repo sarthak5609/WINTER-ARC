@@ -76,7 +76,10 @@ public:
    }
 };
 
+
+in this question we can use XOR but i dont know how to do bitwise operator question
 take  help of chatgpt
+
 
 
 
