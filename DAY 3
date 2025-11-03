@@ -1,0 +1,83 @@
+Question 1 :- Given an integer array nums and a non-negative integer k, rotate the array to the left by k steps.
+
+brute code:- 
+class Solution {
+public:
+    void rotateArrayByOne(vector<int>& nums) {
+    for(int j = 0 ; j < k ; j++){
+        if (nums.empty()) return; // edge case
+
+        int first = nums[0]; // store first element
+
+        // shift elements to the left
+        for (int i = 0; i < nums.size() - 1; i++) {
+            nums[i] = nums[i + 1];
+        }
+
+        nums[nums.size() - 1] = first; // put first element at the end
+    }
+}
+};
+done by me
+
+optimis code:-
+class Solution {
+public:
+    void rotateArray(vector<int>& nums, int k) {
+        int n = nums.size();
+        if (n == 0) {
+            return;}
+        k = k % n; 
+
+        
+        reverse(nums.begin(), nums.begin() + k);
+        reverse(nums.begin() + k, nums.end());
+        reverse(nums.begin(), nums.end());
+    }
+};
+
+help take by chatgpt;
+
+Question 2:-
+
+class Solution {
+public:
+    vector<int> unionArray(vector<int>& nums1, vector<int>& nums2) {
+        set<int> s;
+
+    
+        s.insert(nums1.begin(), nums1.end());
+        s.insert(nums2.begin(), nums2.end());
+
+        
+        vector<int> ans(s.begin(), s.end());
+        return ans;
+    }
+};
+
+concept --> set<int> s;  already take unqiue element with asending oreder 
+
+Question 3:-Given an integer array of size n containing distinct values in the range from 0 to n (inclusive), return the only number missing from the array within this range.
+code:-
+class Solution {
+public:
+   int missingNumber(vector<int>& nums) {
+    int n = nums.size();                
+    int total = n * (n + 1) / 2;         
+    int sum = 0;                        
+
+    // find sum of all elements in array
+    for (int i = 0; i < n; i++) {
+        sum = sum + nums[i];
+    }
+
+    // missing number = expected total - actual sum
+    return total - sum;
+   }
+};
+
+take  help of chatgpt
+
+
+
+
