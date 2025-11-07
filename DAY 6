@@ -22,3 +22,23 @@ public:
         return candidate;
     }
 };
+
+Question 3:-Given an integer array nums, find the subarray with the largest sum and return the sum of the elements present in that subarray.
+A subarray is a contiguous non-empty sequence of elements within an array.
+code:-
+class Solution {
+public:
+   int maxSubArray(vector<int>& nums) {
+    int maxSum = INT_MIN;  
+    int currentSum = 0;    
+
+    for (int i = 0; i < nums.size(); i++) {
+        currentSum += nums[i];           
+        maxSum = max(maxSum, currentSum); 
+        
+     if (currentSum < 0)            
+            currentSum = 0;
+    }
+    return maxSum;
+}
+};
