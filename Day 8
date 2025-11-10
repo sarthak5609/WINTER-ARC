@@ -1,0 +1,58 @@
+Question 1:-Given an integer array nums, return a list of all the leaders in the array.
+A leader in an array is an element whose value is strictly greater than all elements to its right in the given array. The rightmost element is always a leader. The elements in the leader array must appear in the order they appear in the nums array.
+
+code:-
+class Solution {
+  public:
+    vector<int> leaders(vector<int>& arr) {
+        vector<int> leadersList; // to store the leaders
+        int n = arr.size();
+        int maxR = arr[n - 1];   // rightmost element
+        leadersList.push_back(maxR); // last element is always a leader
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (arr[i] >= maxR) {
+                leadersList.push_back(arr[i]);
+            }
+            maxR = max(maxR, arr[i]);
+        }
+
+        reverse(leadersList.begin(), leadersList.end()); // reverse to correct order
+        return leadersList;
+    }
+};
+
+take help by ai
+
+Question 2:-Given an array arr[] of non-negative integers. Find the length of the longest sub-sequence such that elements in the subsequence are consecutive integers, the consecutive numbers can be in any order.
+code:-
+class Solution {
+  public:
+
+    // Function to return length of longest subsequence of consecutive integers.
+    int longestConsecutive(vector<int>& arr) {
+          unordered_set<int> s(arr.begin(), arr.end());
+
+        int longest = 0;
+
+        // Step 2: Traverse each element
+        for (int num : arr) {
+            // Step 3: Check if it's the start of a sequence
+            if (s.find(num - 1) == s.end()) {
+                int currentNum = num;
+                int count = 1;
+
+                // Step 4: Count consecutive numbers
+                while (s.find(currentNum + 1) != s.end()) {
+                    currentNum++;
+                    count++;
+                }
+
+                // Step 5: Update longest sequence length
+                longest = max(longest, count);
+            }
+        }
+
+        return longest;
+    }
+};
