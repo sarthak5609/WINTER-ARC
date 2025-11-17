@@ -1,0 +1,59 @@
+Question 1:-Given a sorted array of nums and an integer x, write a program to find the upper bound of x.
+The upper bound of x is defined as the smallest index i such that nums[i] > x.
+If no such index is found, return the size of the array.
+
+code:-
+class Solution{
+public:
+   int upperBound(vector<int> &nums, int x) {
+    int start = 0;
+    int end = nums.size() - 1;
+    int ans = nums.size();   // default: if no element ≥ x
+
+    while (start <= end) {
+        int mid = start + (end - start) / 2;
+
+        if (nums[mid] > x) {
+            ans = mid;        // possible answer
+            end = mid - 1;    // try to find even smaller index
+        }
+        else {
+            start = mid + 1;  // go right
+        }
+    }
+
+    return ans;
+}
+
+};
+
+Question 2:-Given a sorted array of nums consisting of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+code:-class Solution {
+public:
+    int searchInsert(vector<int> &nums, int target)  {
+        int start = 0;
+        int end = nums.size()-1;
+        int ans = nums.size();
+        
+         while (start <= end) {
+        int mid = start + (end - start) / 2;
+         
+
+         if(nums[mid]==target){
+            return  mid;
+         }
+
+         else if(nums[mid]>target){
+            end = mid -1;
+            ans = mid;
+         }
+
+         else if(nums[mid]<target){
+            start = mid + 1;
+         }
+         }
+         return ans;
+    }
+    
+};
